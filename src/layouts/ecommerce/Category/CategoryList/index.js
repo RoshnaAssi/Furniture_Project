@@ -16,22 +16,18 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
-import Checkbox from "@mui/material/Checkbox";
-
 // Data
 import PropTypes from 'prop-types'; // Import PropTypes
+import ActionCell from "./components/ActionCell";
+import ProductCell from "./components/ProductCell";
 
 // ProductsList page components
 import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../config/firebase";
 
-// @mui material components
-import Icon from "@mui/material/Icon";
-import Tooltip from "@mui/material/Tooltip";
 
 import ArgonBadge from "components/ArgonBadge";
-import { useNavigate } from "react-router-dom";
 import React, { forwardRef } from 'react';
 // Badges
 const outOfStock = (
@@ -45,7 +41,6 @@ const CategoryList = () => {
 
   const [categoryList, setCategoryList] = useState([]);
   const categoriesCollectionRef = collection(db, "Category");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,76 +72,23 @@ const CategoryList = () => {
     }
   };
 
-  const renderAction = () => {
-    return (
-      <>
-        {categoryList.map((category, index) => (
-          <ArgonBox key={category.id} display="flex" alignItems="center">
-            {index === 0 && ( // Render the icon only for the first category
-              <>
-                <ArgonTypography variant="body1" color="secondary" sx={{ cursor: "pointer", lineHeight: 0 }}>
-                  <Tooltip title="Preview product" placement="top">
-                    <Icon>visibility</Icon>
-                  </Tooltip>
-                </ArgonTypography>
-                <ArgonBox mx={2}>
-                  <ArgonTypography
-                    variant="body1"
-                    color="secondary"
-                    sx={{ cursor: "pointer", lineHeight: 0 }}
-                  >
-                    <Tooltip title="Edit product" placement="top" onClick={() => navigate(`/ecommerce/Category/add-Category/${category.id}`)}>
-                      <Icon>edit</Icon>
-                    </Tooltip>
-                  </ArgonTypography>
-                </ArgonBox>
-                <ArgonTypography variant="body1" color="secondary" sx={{ cursor: "pointer", lineHeight: 0 }}>
-                  <Tooltip title="Delete product" placement="left" onClick={() => handelDelete(category.id)}>
-                    <Icon>delete</Icon>
-                  </Tooltip>
-                </ArgonTypography>
-              </>
-            )}
-          </ArgonBox>
-        ))}
-      </>
-    );
-  }
-
-  const renderimage = () => {
-    return (
-      <>
-        {categoryList.map((category, index) => (
-          <ArgonBox key={category.id} display="flex" alignItems="center">
-            {index === 0 && ( // Render the icon only for the first category
-              <>
-                <Checkbox defaultChecked={category.checked} />
-                <ArgonBox mx={2} width="3.75rem">
-                  <ArgonBox component="img" src={category.img} alt={category.name} width="100%" />
-                </ArgonBox>
-                <ArgonTypography variant="button" fontWeight="medium">
-                  {category.name}
-                </ArgonTypography>
-              </>
-            )}
-          </ArgonBox>
-        ))}
-      </>
-    );
-  }
-
   const actionColumn = [
     {
       Header: "Action",
       accessor: "actions", // Change the accessor to match your data structure
-      Cell: renderAction
+      Cell: <ActionCell
+        categoryList={categoryList}
+        handelDelete={handelDelete}
+      />
     }
   ];
   const userColumn = [
     {
       Header: "Categories",
       accessor: "category",
-      Cell: renderimage
+      Cell: <ProductCell
+        categoryList={categoryList}
+      />
     },
     { Header: "TotalProducts", accessor: "TotalProduct" },
     { Header: "TotalEarning", accessor: "TotalEarning" },

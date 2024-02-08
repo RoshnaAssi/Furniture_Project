@@ -68,10 +68,6 @@ const pageRoutes = [
             route: "/pages/projects/general",
           },
           {
-            name: "timeline",
-            route: "/pages/projects/timeline",
-          },
-          {
             name: "new project",
             route: "/pages/projects/new-project",
           },
@@ -103,17 +99,7 @@ const pageRoutes = [
         name: "extra",
         icon: <ArgonBox component="i" color="info" className="ni ni-folder-17" />,
         collapse: [
-          {
-            name: "pricing page",
-            route: "/pages/pricing-page",
-          },
           { name: "RTL", route: "/pages/rtl" },
-          { name: "widgets", route: "/pages/widgets" },
-          { name: "charts", route: "/pages/charts" },
-          {
-            name: "notfications",
-            route: "/pages/notifications",
-          },
         ],
       },
     ],
@@ -155,8 +141,6 @@ const pageRoutes = [
       </ArgonBox>
     ),
     collapse: [
-      
-         
           {
             name: "sign in",
             route: "/authentication/sign-in/illustration",
@@ -204,49 +188,6 @@ const pageRoutes = [
     ],
   },
   {
-    name: "application",
-    collapse: [
-      {
-        name: "kanban",
-        route: "/applications/kanban",
-        icon: (
-          <ArgonBox
-            component="i"
-            color="info"
-            className="ni ni-single-copy-04"
-            mt={0.125}
-            py={0.625}
-          />
-        ),
-      },
-      {
-        name: "wizard",
-        route: "/applications/wizard",
-        icon: (
-          <ArgonBox component="i" color="info" className="ni ni-laptop" mt={0.125} py={0.625} />
-        ),
-      },
-      {
-        name: "data tables",
-        route: "/applications/data-tables",
-        icon: <ArgonBox component="i" color="info" className="ni ni-badge" mt={0.125} py={0.625} />,
-      },
-      {
-        name: "calendar",
-        route: "/applications/calendar",
-        icon: (
-          <ArgonBox
-            component="i"
-            color="info"
-            className="ni ni-notification-70"
-            mt={0.125}
-            py={0.625}
-          />
-        ),
-      },
-    ],
-  },
-  {
     name: "ecommerce",
     columns: 2,
     rowsPerColumn: 2,
@@ -290,6 +231,10 @@ const pageRoutes = [
           {
             name: "Add Category",
             route: "/ecommerce/Category/add-Category",
+          },
+          {
+            name: "Category Page",
+            route: "/ecommerce/Category/CategoryPage/:id",
           }
         ],
       },
@@ -314,35 +259,6 @@ const pageRoutes = [
             route: "/ecommerce/products/products-list",
           },
         ],
-      },
-    ],
-  },
-  {
-    name: "docs",
-    collapse: [
-      {
-        name: "getting started",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/quick-start/argon-dashboard/",
-        description: "All about overview, quick start, license and contents",
-        icon: <ArgonBox component="i" color="info" className="ni ni-planet" />,
-      },
-      {
-        name: "foundation",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/colors/argon-dashboard/",
-        description: "See our colors, icons and typography",
-        icon: <ArgonBox component="i" color="info" className="ni ni-single-copy-04" />,
-      },
-      {
-        name: "components",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/alerts/argon-dashboard/",
-        description: "Explore our collection of fully designed components",
-        icon: <ArgonBox component="i" color="info" className="ni ni-app" />,
-      },
-      {
-        name: "plugins",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/datepicker/argon-dashboard/",
-        description: "Check how you can integrate our plugins",
-        icon: <ArgonBox component="i" color="info" className="ni ni-chart-bar-32" />,
       },
     ],
   },

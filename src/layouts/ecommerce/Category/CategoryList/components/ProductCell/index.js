@@ -8,30 +8,33 @@ import Checkbox from "@mui/material/Checkbox";
 import ArgonBox from "components/ArgonBox";
 import ArgonTypography from "components/ArgonTypography";
 
-function ProductCell({ image, name, checked }) {
+function ProductCell({ categoryList,category, name, checked }) {
   return (
-    <ArgonBox display="flex" alignItems="center">
-      <Checkbox defaultChecked={checked} />
-      <ArgonBox mx={2} width="3.75rem">
-        <ArgonBox component="img" src={image} alt={name} width="100%" />
+    <>
+    {categoryList.map((category, index) => (
+      <ArgonBox key={category.id} display="flex" alignItems="center">
+        <ArgonBox key={category.id} display="flex" alignItems="center">
+          <Checkbox defaultChecked={category.checked} />
+          <ArgonBox mx={2} width="3.75rem">
+            <ArgonBox component="img" src={category.img} alt={category.name} width="100%" />
+          </ArgonBox>
+          <ArgonTypography variant="button" fontWeight="medium">
+            {category.name}
+          </ArgonTypography>
+        </ArgonBox>
       </ArgonBox>
-      <ArgonTypography variant="button" fontWeight="medium">
-        {name}
-      </ArgonTypography>
-    </ArgonBox>
+    ))}
+  </>
   );
 }
-
-// Setting default value for the props of ProductCell
-ProductCell.defaultProps = {
-  checked: false,
-};
 
 // Typechecking props for the ProductCell
 ProductCell.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool,
+  category: PropTypes.string.isRequired,
+  categoryList: PropTypes.string.isRequired,
 };
 
 export default ProductCell;

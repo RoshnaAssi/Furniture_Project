@@ -8,18 +8,8 @@ import Billing from "layouts/pages/account/billing";
 import Invoice from "layouts/pages/account/invoice";
 import Security from "layouts/pages/account/security";
 import General from "layouts/pages/projects/general";
-import Timeline from "layouts/pages/projects/timeline";
 import NewProject from "layouts/pages/projects/new-project";
-import Widgets from "layouts/pages/widgets";
-import Charts from "layouts/pages/charts";
-import SweetAlerts from "layouts/pages/sweet-alerts";
-import Notifications from "layouts/pages/notifications";
-import PricingPage from "layouts/pages/pricing-page";
 import RTL from "layouts/pages/rtl";
-import Kanban from "layouts/applications/kanban";
-import Wizard from "layouts/applications/wizard";
-import DataTables from "layouts/applications/data-tables";
-import Calendar from "layouts/applications/calendar";
 import Analytics from "layouts/applications/analytics";
 import Overview from "layouts/ecommerce/overview";
 import NewProduct from "layouts/ecommerce/products/new-product";
@@ -41,6 +31,7 @@ import AddCategory from "../src/layouts/ecommerce/Category/AddCategory";
 
 // Argon Dashboard 2 PRO MUI components
 import ArgonBox from "components/ArgonBox";
+import CategoryPage from "layouts/ecommerce/Category/CategoryPage";
 
 const routes = [
   {
@@ -78,13 +69,11 @@ const routes = [
             name: "Customer Detail",
             key: "data-tables",
             route: "/applications/data-tables",
-            component: <DataTables />,
           },
           {
             name: "Add Customer",
             key: "Add Customer",
             route: "/pages/Customers/AddCustomers",
-            component: <Wizard />,
           },
         ],
       },
@@ -147,12 +136,6 @@ const routes = [
             component: <General />,
           },
           {
-            name: "Timeline",
-            key: "timeline",
-            route: "/pages/projects/timeline",
-            component: <Timeline />,
-          },
-          {
             name: "New Project",
             key: "new-project",
             route: "/pages/projects/new-project",
@@ -160,27 +143,7 @@ const routes = [
           },
         ],
       },
-      {
-        name: "Pricing Page",
-        key: "pricing-page",
-        route: "/pages/pricing-page",
-        component: <PricingPage />,
-      },
       { name: "RTL", key: "rtl", route: "/pages/rtl", component: <RTL /> },
-      { name: "Widgets", key: "widgets", route: "/pages/widgets", component: <Widgets /> },
-      { name: "Charts", key: "charts", route: "/pages/charts", component: <Charts /> },
-      {
-        name: "Sweet Alerts",
-        key: "sweet-alerts",
-        route: "/pages/sweet-alerts",
-        component: <SweetAlerts />,
-      },
-      {
-        name: "Notfications",
-        key: "notifications",
-        route: "/pages/notifications",
-        component: <Notifications />,
-      },
     ],
   },
   {
@@ -189,30 +152,6 @@ const routes = [
     key: "applications",
     icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-ui-04" />,
     collapse: [
-      {
-        name: "Kanban",
-        key: "kanban",
-        route: "/applications/kanban",
-        component: <Kanban />,
-      },
-      {
-        name: "Wizard",
-        key: "wizard",
-        route: "/applications/wizard",
-        component: <Wizard />,
-      },
-      {
-        name: "Data Tables",
-        key: "data-tables",
-        route: "/applications/data-tables",
-        component: <DataTables />,
-      },
-      {
-        name: "Calendar",
-        key: "calendar",
-        route: "/applications/calendar",
-        component: <Calendar />,
-      },
       {
         name: "Analytics",
         key: "analytics",
@@ -248,6 +187,12 @@ const routes = [
             key: "add-Category",
             route: "/ecommerce/Category/add-Category",
             component: <AddCategory />,
+          },
+          {
+            name: "Category Page",
+            key: "Category-page",
+            route: "/ecommerce/Category/CategoryPage/:id",
+            component: <CategoryPage />,
           }
         ],
       },
@@ -374,185 +319,7 @@ const routes = [
         ],
       },
     ],
-  },
-  { type: "divider", key: "divider-1" },
-  { type: "title", title: "Docs", key: "title-docs" },
-  {
-    type: "collapse",
-    name: "Basic",
-    key: "basic",
-    icon: <ArgonBox component="i" color="inherit" fontSize="14px" className="ni ni-spaceship" />,
-    collapse: [
-      {
-        name: "Getting Started",
-        key: "getting-started",
-        collapse: [
-          {
-            name: "Overview",
-            key: "overview",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/overview/argon-dashboard/",
-          },
-          {
-            name: "License",
-            key: "license",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/license/argon-dashboard/",
-          },
-          {
-            name: "Quick Start",
-            key: "quick-start",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/quick-start/argon-dashboard/",
-          },
-          {
-            name: "Build Tools",
-            key: "build-tools",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/build-tools/argon-dashboard/",
-          },
-        ],
-      },
-      {
-        name: "Foundation",
-        key: "foundation",
-        collapse: [
-          {
-            name: "Colors",
-            key: "colors",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/colors/argon-dashboard/",
-          },
-          {
-            name: "Grid",
-            key: "grid",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/grid/argon-dashboard/",
-          },
-          {
-            name: "Typography",
-            key: "base-typography",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/base-typography/argon-dashboard/",
-          },
-          {
-            name: "Borders",
-            key: "borders",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/borders/argon-dashboard/",
-          },
-          {
-            name: "Box Shadows",
-            key: "box-shadows",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/box-shadows/argon-dashboard/",
-          },
-          {
-            name: "Functions",
-            key: "functions",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/functions/argon-dashboard/",
-          },
-          {
-            name: "Routing System",
-            key: "routing-system",
-            href: "https://www.creative-tim.com/learning-lab/material-ui/routing-system/argon-dashboard/",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    type: "collapse",
-    name: "Components",
-    key: "components",
-    icon: <ArgonBox component="i" color="inherit" fontSize="14px" className="ni ni-app" />,
-    collapse: [
-      {
-        name: "Alerts",
-        key: "alerts",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/alerts/argon-dashboard/",
-      },
-      {
-        name: "Avatar",
-        key: "avatar",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/avatar/argon-dashboard/",
-      },
-      {
-        name: "Badge",
-        key: "badge",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/badge/argon-dashboard/",
-      },
-      {
-        name: "Badge Dot",
-        key: "badge-dot",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/badge-dot/argon-dashboard/",
-      },
-      {
-        name: "Box",
-        key: "box",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/box/argon-dashboard/",
-      },
-      {
-        name: "Buttons",
-        key: "buttons",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/buttons/argon-dashboard/",
-      },
-      {
-        name: "Date Picker",
-        key: "date-picker",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/datepicker/argon-dashboard/",
-      },
-      {
-        name: "Dropzone",
-        key: "dropzone",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/dropzone/argon-dashboard/",
-      },
-      {
-        name: "Editor",
-        key: "editor",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/quill/argon-dashboard/",
-      },
-      {
-        name: "Input",
-        key: "input",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/input/argon-dashboard/",
-      },
-      {
-        name: "Pagination",
-        key: "pagination",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/pagination/argon-dashboard/",
-      },
-      {
-        name: "Progress",
-        key: "progress",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/progress/argon-dashboard/",
-      },
-      {
-        name: "Select",
-        key: "select",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/select/argon-dashboard/",
-      },
-      {
-        name: "Snackbar",
-        key: "snackbar",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/snackbar/argon-dashboard/",
-      },
-      {
-        name: "Social Button",
-        key: "social-button",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/social-buttons/argon-dashboard/",
-      },
-      {
-        name: "Tag Input",
-        key: "tag-input",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/tag-input/argon-dashboard/",
-      },
-      {
-        name: "Typography",
-        key: "typography",
-        href: "https://www.creative-tim.com/learning-lab/material-ui/typography/argon-dashboard/",
-      },
-    ],
-  },
-  {
-    type: "collapse",
-    name: "Change Log",
-    key: "changelog",
-    href: "https://github.com/creativetimofficial/ct-argon-dashboard-pro-material-ui/blob/main/CHANGELOG.md",
-    icon: <ArgonBox component="i" color="inherit" fontSize="14px" className="ni ni-align-left-2" />,
-    noCollapse: true,
-  },
+  }
 ];
 
 export default routes;

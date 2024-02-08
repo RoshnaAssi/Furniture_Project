@@ -20,6 +20,7 @@ import Footer from "examples/Footer";
 import Header from "layouts/ecommerce/Category/AddCategory/components/Header";
 import Media from "layouts/ecommerce/Category/AddCategory/components/Media";
 import Pricing from "layouts/ecommerce/Category/AddCategory/components/Pricing";
+import ProductInfo from "layouts/ecommerce/Category/AddCategory/components/ProductInfo"
 
 // Argon Dashboard 2 PRO MUI components
 import ArgonTypography from "components/ArgonTypography";
@@ -38,7 +39,6 @@ import { useNavigate } from "react-router-dom";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useEffect } from "react";
 
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { v4 } from "uuid";
 
 // Images
@@ -67,18 +67,6 @@ function AddCategory() {
   const [downloadURL, setDownloadURL] = useState(""); // Define downloadURL state
 
   const { id } = useParams();
-
-  useEffect(() => {
-    id && getSingleUser
-  },[id]);
-
-  const getSingleUser = async () => {
-    const docRef = doc(db, "Category", id);
-    const snapShot = await getDoc(docRef);
-    if(snapShot.exists()) {
-      setData({...snapShot.data()});
-    }
-  }
 
   useEffect(() => {
     const uploadFile = () => {
@@ -115,38 +103,21 @@ function AddCategory() {
     }
     file && uploadFile();
   }, [file]);
-  console.log(data);
 
   const createCategory = async (e) => {
     e.preventDefault();
-    if(!id) {
-      try {
-        await addDoc(categoriesCollectionRef, {
-          name: addName,
-          TotalProduct: addTotalProduct,
-          TotalEarning: addTotalEarning,
-          status: addStatus,
-          img: downloadURL
-        });
-        navigate("/ecommerce/Category/category-list");
-      } catch (e) {
-        console.log(e);
-      }
-    }else{
-      try {
-        await updateDoc(doc(db, "Category", id),{
-          name: addName,
-          TotalProduct: addTotalProduct,
-          TotalEarning: addTotalEarning,
-          status: addStatus,
-          img: downloadURL
-        });
-        navigate("/ecommerce/Category/category-list");
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      await addDoc(categoriesCollectionRef, {
+        name: addName,
+        TotalProduct: addTotalProduct,
+        TotalEarning: addTotalEarning,
+        status: addStatus,
+        img: downloadURL
+      });
+      navigate("/ecommerce/Category/category-list");
+    } catch (e) {
+      console.log(e);
     }
-
   }
   
 
@@ -157,98 +128,20 @@ function AddCategory() {
     switch (stepIndex) {
       case 0:
         return (
-          <ArgonBox>
-            <ArgonTypography variant="h5">{id ? "Update Category" : "Add Category" }</ArgonTypography>
-            <ArgonBox mt={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <FormField type="text" label="name" placeholder="eg. " onChange={(e) => { setAddName(e.target.value) }} />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormField type="text" label="TotalProduct" placeholder="eg. 42" onChange={(e) => { setAddTotalProduct(e.target.value) }} />
-                </Grid>
-              </Grid>
-            </ArgonBox>
-            <ArgonBox mt={2}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-                    <ArgonTypography component="label" variant="caption" fontWeight="bold">
-                      Description&nbsp;&nbsp;
-                      <ArgonTypography variant="caption" fontWeight="regular" color="text" onChange={(e) => { setAddDescription(e.target.value) }}>
-                        (optional)
-                      </ArgonTypography>
-                    </ArgonTypography>
-                  </ArgonBox>
-                  <ArgonEditor />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormField type="text" label="TotalEarning" placeholder="eg. 420$" onChange={(e) => { setAddTotalEarning(e.target.value) }} />
-                  <FormField type="text" label="Status" placeholder="in stock" onChange={(e) => { setAddStatus(e.target.value) }} />
-                  <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-                    <ArgonTypography
-                      component="label"
-                      variant="caption"
-                      fontWeight="bold"
-                      textTransform="capitalize"
-                    >
-                      Size
-                    </ArgonTypography>
-                  </ArgonBox>
-                  <ArgonSelect
-                    defaultValue={{ value: "medium", label: "Medium" }}
-                    options={[
-                      { value: "extra large", label: "Extra Large" },
-                      { value: "extra small", label: "Extra Small" },
-                      { value: "large", label: "Large" },
-                      { value: "medium", label: "Medium" },
-                      { value: "small", label: "Small" },
-                    ]}
-                  />
-                </Grid>
-              </Grid>
-            </ArgonBox>
-          </ArgonBox>
+          <ProductInfo 
+          setAddName={setAddName}
+          setAddTotalProduct={setAddTotalProduct}
+          setAddDescription={setAddDescription}
+          setAddTotalEarning={setAddTotalEarning}
+          setAddStatus={setAddStatus}
+          />
         );
       case 1:
         return (
-          <ArgonBox>
-            <ArgonTypography variant="h5">Media</ArgonTypography>
-            <ArgonBox mt={3}>
-              <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-                <ArgonTypography component="label" variant="caption" fontWeight="bold">
-                  Category Image
-                </ArgonTypography>
-              </ArgonBox>
-              <div className="bottom">
-                <div className="left">
-                  <img
-                    src={
-                      file
-                        ? URL.createObjectURL(file)
-                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                    }
-                    alt=""
-                  />
-                </div>
-                <div className="right">
-                  <form>
-                    <div className="formInput">
-                      <label htmlFor="file">
-                        Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                      </label>
-                      <input
-                        type="file"
-                        id="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        style={{ display: "none" }}
-                      />
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </ArgonBox>
-          </ArgonBox>
+          <Media 
+            file={file}
+            setFile={setFile}
+          />
         );
       case 2:
         return <Pricing />;
@@ -311,3 +204,4 @@ function AddCategory() {
 }
 
 export default AddCategory;
+

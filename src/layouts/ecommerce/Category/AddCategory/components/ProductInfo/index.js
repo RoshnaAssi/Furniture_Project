@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Argon Dashboard 2 PRO MUI - v3.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-pro-mui
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // @mui material components
@@ -26,82 +11,72 @@ import ArgonSelect from "components/ArgonSelect";
 
 // NewProduct page components
 import FormField from "layouts/ecommerce/products/new-product/components/FormField";
+import PropTypes from 'prop-types'; // Import PropTypes
 
-function ProductInfo() {
+function ProductInfo({setAddName,setAddTotalProduct,setAddDescription,setAddTotalEarning,setAddStatus}) {
   return (
     <ArgonBox>
-      <ArgonTypography variant="h5">Product Information</ArgonTypography>
-      <ArgonBox mt={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <FormField type="text" label="name" placeholder="eg. Off-White" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField type="text" label="weight" placeholder="eg. 42" />
-          </Grid>
+    <ArgonTypography variant="h5">Add Category</ArgonTypography>
+    <ArgonBox mt={3}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <FormField type="text" label="name" placeholder="eg. " onChange={(e) => { setAddName(e.target.value) }} />
         </Grid>
-      </ArgonBox>
-      <ArgonBox mt={2}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-              <ArgonTypography component="label" variant="caption" fontWeight="bold">
-                Description&nbsp;&nbsp;
-                <ArgonTypography variant="caption" fontWeight="regular" color="text">
-                  (optional)
-                </ArgonTypography>
-              </ArgonTypography>
-            </ArgonBox>
-            <ArgonEditor />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <ArgonBox mb={3}>
-              <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-                <ArgonTypography
-                  component="label"
-                  variant="caption"
-                  fontWeight="bold"
-                  textTransform="capitalize"
-                >
-                  Category
-                </ArgonTypography>
-              </ArgonBox>
-              <ArgonSelect
-                defaultValue={{ value: "clothing", label: "Clothing" }}
-                options={[
-                  { value: "clothing", label: "Clothing" },
-                  { value: "electronics", label: "Electronics" },
-                  { value: "furniture", label: "Furniture" },
-                  { value: "others", label: "Others" },
-                  { value: "real estate", label: "Real Estate" },
-                ]}
-              />
-            </ArgonBox>
-            <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
-              <ArgonTypography
-                component="label"
-                variant="caption"
-                fontWeight="bold"
-                textTransform="capitalize"
-              >
-                Size
-              </ArgonTypography>
-            </ArgonBox>
-            <ArgonSelect
-              defaultValue={{ value: "medium", label: "Medium" }}
-              options={[
-                { value: "extra large", label: "Extra Large" },
-                { value: "extra small", label: "Extra Small" },
-                { value: "large", label: "Large" },
-                { value: "medium", label: "Medium" },
-                { value: "small", label: "Small" },
-              ]}
-            />
-          </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormField type="text" label="TotalProduct" placeholder="eg. 42" onChange={(e) => { setAddTotalProduct(e.target.value) }} />
         </Grid>
-      </ArgonBox>
+      </Grid>
     </ArgonBox>
+    <ArgonBox mt={2}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
+          <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
+            <ArgonTypography component="label" variant="caption" fontWeight="bold">
+              Description&nbsp;&nbsp;
+              <ArgonTypography variant="caption" fontWeight="regular" color="text" onChange={(e) => { setAddDescription(e.target.value) }}>
+                (optional)
+              </ArgonTypography>
+            </ArgonTypography>
+          </ArgonBox>
+          <ArgonEditor />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormField type="text" label="TotalEarning" placeholder="eg. 420$" onChange={(e) => { setAddTotalEarning(e.target.value) }} />
+          <FormField type="text" label="Status" placeholder="in stock" onChange={(e) => { setAddStatus(e.target.value) }} />
+          <ArgonBox mb={1} ml={0.5} lineHeight={0} display="inline-block">
+            <ArgonTypography
+              component="label"
+              variant="caption"
+              fontWeight="bold"
+              textTransform="capitalize"
+            >
+              Size
+            </ArgonTypography>
+          </ArgonBox>
+          <ArgonSelect
+            defaultValue={{ value: "medium", label: "Medium" }}
+            options={[
+              { value: "extra large", label: "Extra Large" },
+              { value: "extra small", label: "Extra Small" },
+              { value: "large", label: "Large" },
+              { value: "medium", label: "Medium" },
+              { value: "small", label: "Small" },
+            ]}
+          />
+        </Grid>
+      </Grid>
+    </ArgonBox>
+  </ArgonBox>
   );
 }
+
+ProductInfo.propTypes = {
+  setAddName: PropTypes.string.isRequired,
+  setAddTotalProduct: PropTypes.string.isRequired, 
+  setAddDescription: PropTypes.string.isRequired, 
+  setAddTotalEarning: PropTypes.string.isRequired,
+  setAddStatus: PropTypes.string.isRequired,
+
+  };
 
 export default ProductInfo;
