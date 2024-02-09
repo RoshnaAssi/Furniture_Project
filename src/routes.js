@@ -28,6 +28,7 @@ import Error404 from "layouts/authentication/error/404";
 import Error500 from "layouts/authentication/error/500";
 import CategoryList from "../src/layouts/ecommerce/Category/CategoryList";
 import AddCategory from "../src/layouts/ecommerce/Category/AddCategory";
+import EditCategory from "../src/layouts/ecommerce/Category/edit-product"
 
 // Argon Dashboard 2 PRO MUI components
 import ArgonBox from "components/ArgonBox";
@@ -193,6 +194,12 @@ const routes = [
             key: "Category-page",
             route: "/ecommerce/Category/CategoryPage/:id",
             component: <CategoryPage />,
+          },
+          {
+            name: "Edit Category",
+            key: "Edit Category",
+            route: "/ecommerce/Category/EditCategory/:id",
+            component: <EditCategory />,
           }
         ],
       },

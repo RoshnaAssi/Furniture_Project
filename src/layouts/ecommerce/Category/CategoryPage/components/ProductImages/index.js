@@ -1,53 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; // Import PropTypes
-// react-images-viewer components
-import ImgsViewer from "react-images-viewer";
-
-// @mui material components
-import Grid from "@mui/material/Grid";
 
 // Argon Dashboard 2 PRO MUI components
 import ArgonBox from "components/ArgonBox";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "config/firebase";
 
-function ProductImages() {
-  const [imgsViewer, setImgsViewer] = useState(false);
-  const [imgsViewerCurrent, setImgsViewerCurrent] = useState(0);
-
-  const openImgsViewer = () => setImgsViewer(true);
-  const closeImgsViewer = () => setImgsViewer(false);
-  const imgsViewerNext = () => setImgsViewerCurrent(imgsViewerCurrent + 1);
-  const imgsViewerPrev = () => setImgsViewerCurrent(imgsViewerCurrent - 1);
-  const [editImg, setEditImg] = useState('');
+function CategoryImages({ editImg, setEditImg, setCategoryList }) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "Category"));
+        const newList = [];
+        querySnapshot.forEach((doc) => {
+          newList.push({ id: doc.id, ...doc.data() });
+        });
+        setCategoryList(newList);
+        console.log(newList);
+        if (newList.length > 0) {
+          setEditImg(newList[0].img); // Set editImg from fetched data
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <ArgonBox>
-      <ImgsViewer
-        imgs={[{ src: editImg }]}
-        isOpen={imgsViewer}
-        onClose={closeImgsViewer}
-        currImg={imgsViewerCurrent}
-        onClickPrev={imgsViewerPrev}
-        onClickNext={imgsViewerNext}
-        backdropCloseable
-        onChange={(e) => setEditImg(e.target.value)}
-      />
-
       <ArgonBox
         component="img"
         src={editImg}
         alt="Product Image"
         shadow="lg"
         borderRadius="lg"
-        width="100%"
-        onClick={openImgsViewer}
-        onChange={(e) => setEditImg(e.target.value)}
+        width="10%"
       />
     </ArgonBox>
   );
 }
 
-ProductImages.propTypes = {
+CategoryImages.propTypes = {
   editImg: PropTypes.string.isRequired,
+  setEditImg: PropTypes.func.isRequired, // Change to func
+  setCategoryList: PropTypes.func.isRequired, // Change to func
 };
 
-export default ProductImages;
+export default CategoryImages;

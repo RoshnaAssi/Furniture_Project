@@ -29,6 +29,7 @@ import { db } from "../../../../config/firebase";
 
 import ArgonBadge from "components/ArgonBadge";
 import React, { forwardRef } from 'react';
+
 // Badges
 const outOfStock = (
   <ArgonBadge variant="contained" color="error" size="xs" badgeContent="out of stock" container />
@@ -76,22 +77,22 @@ const CategoryList = () => {
     {
       Header: "Action",
       accessor: "actions", // Change the accessor to match your data structure
-      Cell: <ActionCell
-        categoryList={categoryList}
+      Cell: ({ row }) => ( // Pass ActionCell as a function
+      <ActionCell
+      category={row.original.category}
         handelDelete={handelDelete}
       />
-    }
+    )}
   ];
   const userColumn = [
     {
       Header: "Categories",
       accessor: "category",
-      Cell: <ProductCell
-        categoryList={categoryList}
-      />
+      Cell: ({ row }) => <ProductCell checked={row.original.checked} img={row.original.img} name={row.original.name}/>, // Use correct property name
     },
     { Header: "TotalProducts", accessor: "TotalProduct" },
     { Header: "TotalEarning", accessor: "TotalEarning" },
+    { Header: "Description", accessor: "Description" },
     {
       Header: "status",
       accessor: "status",
@@ -148,13 +149,20 @@ const CategoryList = () => {
 }
 
 CategoryList.propTypes = {
+  row: PropTypes.shape({
+    original: PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      checked: PropTypes.bool.isRequired,
+      img: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+
   value: PropTypes.shape({
     checked: PropTypes.bool.isRequired,
-    id: PropTypes.string.isRequired, // Move id outside the value object
-    img: PropTypes.string, // Add validation for the img property
+    id: PropTypes.string.isRequired,
+    img: PropTypes.string,
   }).isRequired,
 };
-
-
 
 export default CategoryList;

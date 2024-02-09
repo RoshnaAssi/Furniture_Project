@@ -22,18 +22,8 @@ import Media from "layouts/ecommerce/Category/AddCategory/components/Media";
 import Pricing from "layouts/ecommerce/Category/AddCategory/components/Pricing";
 import ProductInfo from "layouts/ecommerce/Category/AddCategory/components/ProductInfo"
 
-// Argon Dashboard 2 PRO MUI components
-import ArgonTypography from "components/ArgonTypography";
-import ArgonEditor from "components/ArgonEditor";
-import ArgonSelect from "components/ArgonSelect";
-import ArgonDropzone from "components/ArgonDropzone";
-
-// NewProduct page components
-import FormField from "layouts/ecommerce/Category/AddCategory/components/FormField";
-
 import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../../../config/firebase";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -65,8 +55,6 @@ function AddCategory() {
   const categoriesCollectionRef = collection(db, "Category");
   const navigate = useNavigate();
   const [downloadURL, setDownloadURL] = useState(""); // Define downloadURL state
-
-  const { id } = useParams();
 
   useEffect(() => {
     const uploadFile = () => {
@@ -112,14 +100,15 @@ function AddCategory() {
         TotalProduct: addTotalProduct,
         TotalEarning: addTotalEarning,
         status: addStatus,
-        img: downloadURL
+        img: downloadURL,
+        Description: addDescription
       });
       navigate("/ecommerce/Category/category-list");
     } catch (e) {
       console.log(e);
     }
   }
-  
+
 
   function getSteps() {
     return ["1. Category Info", "2. Media", "3. Pricing"];
@@ -128,17 +117,17 @@ function AddCategory() {
     switch (stepIndex) {
       case 0:
         return (
-          <ProductInfo 
-          setAddName={setAddName}
-          setAddTotalProduct={setAddTotalProduct}
-          setAddDescription={setAddDescription}
-          setAddTotalEarning={setAddTotalEarning}
-          setAddStatus={setAddStatus}
+          <ProductInfo
+            setAddName={setAddName}
+            setAddTotalProduct={setAddTotalProduct}
+            setAddDescription={setAddDescription} 
+            setAddTotalEarning={setAddTotalEarning}
+            setAddStatus={setAddStatus}
           />
         );
       case 1:
         return (
-          <Media 
+          <Media
             file={file}
             setFile={setFile}
           />

@@ -1,4 +1,3 @@
-
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
@@ -18,42 +17,40 @@ import ProductImages from "layouts/ecommerce/Category/CategoryPage/components/Pr
 import ProductInfo from "layouts/ecommerce/Category/CategoryPage/components/ProductInfo";
 // Data
 import dataTableData from "layouts/ecommerce/Category/CategoryPage/data/dataTableData";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { updateDoc, collection, getDocs, doc } from "firebase/firestore";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { doc, updateDoc } from "firebase/firestore";
-import { db, storage } from "../../../../config/firebase";
-
-
+import { db } from "config/firebase";
 
 function CategoryPage() {
-  
-  const [editImg, setEditImg] = useState('');
+  const { id } = useParams();
+  const [categoryList, setCategoryList] = useState([]);
   const [editName, setEditName] = useState("");
   const [editTotalProduct, setEditTotalProduct] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [editTotalEarning, setEditTotalEarning] = useState("");
   const [editStatus, setEditStatus] = useState("");
+  const [editImg, setEditImg] = useState('');
 
   const navigate = useNavigate();
 
   const editCategory = async (id) => {
     try {
-      console.log("ID:", id); // Log the value of id
       const categoryDoc = doc(db, "Category", id);
       await updateDoc(categoryDoc, {
         name: editName,
         TotalProduct: editTotalProduct,
-        Description: editDescription,
+        Description: editDescription || "", // Use an empty string if editDescription is undefined
         TotalEarning: editTotalEarning,
         status: editStatus,
-        img: editImg // Assuming editImg contains the updated image URL
+        img: editImg
       });
       navigate("/ecommerce/Category/category-list");
     } catch (e) {
       console.log(e);
     }
   }
-
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -65,23 +62,22 @@ function CategoryPage() {
                 Category Details
               </ArgonTypography>
             </ArgonBox>
-
+              <ProductImages editImg={editImg} setEditImg={setEditImg} setCategoryList={setCategoryList}/>
             <Grid container spacing={3}>
               <Grid item xs={12} lg={6} xl={5}>
-                <ProductImages />
               </Grid>
               <Grid item xs={12} lg={5} sx={{ mx: "auto" }}>
               <ProductInfo 
                 editName={editName}
                 setEditName={setEditName}
-                editTotalProduct={editTotalProduct}
-                setEditTotalProduct={setEditTotalProduct}
-                editTotalEarning={editTotalEarning}
-                setEditTotalEarning={setEditTotalEarning}
                 editDescription={editDescription}
                 setEditDescription={setEditDescription}
                 editStatus={editStatus}
                 setEditStatus={setEditStatus}
+                editTotalProduct={editTotalProduct}
+                setEditTotalProduct={setEditTotalProduct}
+                editTotalEarning={editTotalEarning}
+                setEditTotalEarning={setEditTotalEarning}
                 editCategory={editCategory}
               /> 
               </Grid>

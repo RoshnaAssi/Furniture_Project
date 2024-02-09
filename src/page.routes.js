@@ -235,6 +235,10 @@ const pageRoutes = [
           {
             name: "Category Page",
             route: "/ecommerce/Category/CategoryPage/:id",
+          },
+          {
+            name: "Edit Category",
+            route: "/ecommerce/Category/EditCategory/:id",
           }
         ],
       },

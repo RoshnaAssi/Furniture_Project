@@ -19,6 +19,13 @@ License - nucleoapp.com/license/
   margin: 20px;
   display: flex;
 }
+.top{
+  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+  padding: 10px;
+  margin: 20px;
+  display: block;
+}
 .left {
   flex: 1;
   text-align: center;
@@ -31,10 +38,25 @@ License - nucleoapp.com/license/
   }
 }
 
+.part-left{
+  flex: 1;
+  text-align: left;
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
 .right {
   flex: 2;
 }
-
+.botton{
+  flex: 2;
+  text-align: left;
+}
   form {
     display: flex;
     flex-wrap: wrap;
